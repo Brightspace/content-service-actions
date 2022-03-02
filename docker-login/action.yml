@@ -1,0 +1,14 @@
+name: 'Docker Login'
+description: 'Login to Docker'
+inputs:
+  username:
+    required: true
+  password:
+    required: true
+  docker-url:
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: docker login --username=${{inputs.username}} --password=${{inputs.password}} ${{inputs.docker-url}}
+      shell: 'bash'

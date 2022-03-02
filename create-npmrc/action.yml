@@ -1,0 +1,14 @@
+name: 'Create npmrc'
+description: 'Creates the .npmrc file'
+inputs:
+  npm-registry:  # id of input
+    description: 'URL of the npm registry'
+    required: true
+  npm-auth-token:
+    description: 'Auth token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: echo -e "@d2l:registry=${{inputs.npm-registry}}\n$( echo ${{inputs.npm-registry}} | sed 's/^http\(s\)\?://'):_authToken=${{inputs.npm-auth-token}}" >> .npmrc
+      shell: 'bash'
