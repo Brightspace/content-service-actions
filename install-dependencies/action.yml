@@ -1,0 +1,27 @@
+name: 'Install dependencies'
+description: 'npm cache and install'
+inputs:
+  npm-registry:
+    description: 'URL of the npm registry'
+    required: true
+  npm-auth-token:
+    description: 'Auth token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Cache node modules
+        uses: Brightspace/third-party-actions@actions/cache
+        with:
+          path: ~/.npm
+          key: v1-${{ hashFiles('**/package.json') }}
+          restore-keys: v1-
+
+    - name: Generate .npmrc file
+      uses: Brightspace/content-service-actions/create-npmrc@v1
+      with:
+        npm-registry: '${{inputs.npm-registry}}'
+        npm-auth-token: '${{inputs.npm-auth-token}}'
+      
+    - name: Install dependencies
+      run: npm ci
