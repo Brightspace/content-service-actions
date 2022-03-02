@@ -11,11 +11,11 @@ runs:
   using: "composite"
   steps:
     - name: Cache node modules
-        uses: Brightspace/third-party-actions@actions/cache
-        with:
-          path: ~/.npm
-          key: v1-${{ hashFiles('**/package.json') }}
-          restore-keys: v1-
+      uses: Brightspace/third-party-actions@actions/cache
+      with:
+        path: ~/.npm
+        key: v1-${{ hashFiles('**/package.json') }}
+        restore-keys: v1-
 
     - name: Generate .npmrc file
       uses: Brightspace/content-service-actions/create-npmrc@v1
