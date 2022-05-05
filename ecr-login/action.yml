@@ -1,0 +1,16 @@
+name: 'ECR Login'
+description: 'Login to AWS Elastic Container Registry'
+inputs:
+  account:
+    description: 'AWS Account Id (defaults to Dev-Enterprise)'
+    required: false
+    default: '803669300714'
+  region:
+    description: 'AWS Region'
+    required: false
+    default: 'us-east-1'
+runs:
+  using: "composite"
+  steps:
+    - run: aws ecr get-login-password --region ${{inputs.region}} | docker login --username AWS --password-stdin ${{inputs.account}}.dkr.ecr.${{inputs.region}}.amazonaws.com
+      shell: 'bash'
